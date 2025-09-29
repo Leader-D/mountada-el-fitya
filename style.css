@@ -31,7 +31,7 @@ body {
 /* مجموعة الأزرار */
 .top-buttons {
   display: flex;
-  gap: 0px; /* تم تصحيح القيمة السالبة */
+  gap: 5px; /* تم تصحيح القيمة السالبة */
 }
 
 /* زر إضافة عضو */
@@ -42,7 +42,7 @@ body {
   padding: 8px 12px;
   border-radius: 2px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
 }
 .add-btn:hover {
   background-color: #27ae60;
@@ -56,10 +56,10 @@ body {
   padding: 8px 12px;
   border-radius: 2px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
 }
 .attendance-btn:hover {
-  background-color: #d35400;
+  background-color: #27ae60;
 }
 
 /* المحتوى الرئيسي */
