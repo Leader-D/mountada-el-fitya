@@ -44,6 +44,9 @@ body {
   cursor: pointer;
   font-size: 14px;
 }
+.add-btn:hover {
+  background-color: #27ae60;
+}
 
 /* زر تسجيل الحضور */
 .attendance-btn {
@@ -55,13 +58,8 @@ body {
   cursor: pointer;
   font-size: 14px;
 }
-
 .attendance-btn:hover {
   background-color: #d35400;
-}
-
-.add-btn:hover {
-  background-color: #27ae60;
 }
 
 /* المحتوى الرئيسي */
@@ -81,7 +79,6 @@ table {
   border-radius: 8px;
 }
 
-/* تم حذف overflow: hidden لأنه يعيق الظلال */
 th, td {
   padding: 10px;
   text-align: center;
@@ -101,21 +98,10 @@ th {
 }
 
 /* ألوان النوادي */
-.club-رسم {
-  background-color: #f8c6d8;
-}
-
-.club-تجارب {
-  background-color: #d4f8d4;
-}
-
-.club-اعلام {
-  background-color: #d0e6ff;
-}
-
-.club-برمجة {
-  background-color: #e6d0ff;
-}
+.club-رسم { background-color: #f8c6d8; }
+.club-تجارب { background-color: #d4f8d4; }
+.club-اعلام { background-color: #d0e6ff; }
+.club-برمجة { background-color: #e6d0ff; }
 
 /* النافذة المنبثقة */
 .modal {
@@ -140,21 +126,41 @@ th {
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
 
-/* حقول الإدخال */
-input, select {
+/* هيدر المودال */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.modal-buttons button {
+  margin-left: 8px;
+}
+
+/* جسم المودال: شبكة عمودين */
+.modal-body {
+  margin-top: 0;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px 20px;
+}
+
+.form-grid input,
+.form-grid select {
   width: 100%;
   padding: 10px;
-  margin: 8px 0;
   border-radius: 5px;
   border: 1px solid #bdc3c7;
   font-size: 14px;
-}
-
-/* أزرار النموذج */
-.form-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
 }
 
 /* أيقونات الإجراءات */
@@ -185,6 +191,8 @@ input, select {
 .hidden {
   display: none;
 }
+
+/* تجاوب الهواتف */
 @media (max-width: 600px) {
   .top-bar {
     flex-direction: column;
@@ -213,7 +221,10 @@ input, select {
     padding: 8px;
   }
 
-  .add-btn, .confirm-btn, .cancel-btn {
+  .add-btn,
+  .attendance-btn,
+  .confirm-btn,
+  .cancel-btn {
     font-size: 13px;
     padding: 6px 10px;
     margin: 4px;
@@ -224,18 +235,7 @@ input, select {
     padding: 20px;
   }
 
-  input[type="text"], input[type="date"] {
-    font-size: 13px;
-    padding: 8px;
-  }
-
-  .member-row {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .member-row input[type="text"] {
-    width: 100%;
-    margin-top: 5px;
+  .form-grid {
+    grid-template-columns: 1fr;
   }
 }
