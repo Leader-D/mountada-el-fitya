@@ -30,8 +30,8 @@ body {
 
 /* مجموعة الأزرار */
 .top-buttons {
-  width: 10px;
-  height: 10px;
+  width: 30px;
+  height: 30px;
   overflow: hidden;
   display: flex;
   gap: 5px; /* تم تصحيح القيمة السالبة */
