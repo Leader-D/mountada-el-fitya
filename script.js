@@ -77,3 +77,6 @@ function deleteMember(index, icon) {
 window.onload = () => {
   members.forEach((member, i) => renderMember(member, i));
 };
+function goToAttendance() {
+  window.location.href = 'attendance.html';
+};
