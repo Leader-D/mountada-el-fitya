@@ -31,7 +31,7 @@ body {
 /* مجموعة الأزرار */
 .top-buttons {
   display: flex;
-  gap: -10px;
+  gap: 0px; /* تم تصحيح القيمة السالبة */
 }
 
 /* زر إضافة عضو */
@@ -79,9 +79,9 @@ table {
   background-color: white;
   box-shadow: 0 0 10px #ccc;
   border-radius: 8px;
-  overflow: hidden;
 }
 
+/* تم حذف overflow: hidden لأنه يعيق الظلال */
 th, td {
   padding: 10px;
   text-align: center;
@@ -174,7 +174,14 @@ input, select {
   color: #3498db;
 }
 
+/* خلية الإجراءات */
+.actions-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* إخفاء العناصر */
 .hidden {
   display: none;
-  }
+}
