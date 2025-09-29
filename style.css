@@ -6,7 +6,7 @@ body {
   direction: rtl;
 }
 
-/ الشريط العلوي /
+/* الشريط العلوي */
 .top-bar {
   position: fixed;
   top: 0;
@@ -28,13 +28,13 @@ body {
   font-size: 17px;
 }
 
-/ مجموعة الأزرار /
+/* مجموعة الأزرار */
 .top-buttons {
   display: flex;
-  gap: 5px;
+  gap: -10px;
 }
 
-/ زر إضافة عضو /
+/* زر إضافة عضو */
 .add-btn {
   background-color: #2ecc71;
   color: white;
@@ -45,7 +45,7 @@ body {
   font-size: 14px;
 }
 
-/ زر تسجيل الحضور /
+/* زر تسجيل الحضور */
 .attendance-btn {
   background-color: #2ecc71;
   color: white;
@@ -64,14 +64,14 @@ body {
   background-color: #27ae60;
 }
 
-/ المحتوى الرئيسي /
+/* المحتوى الرئيسي */
 .main-content {
   margin-top: 60px;
   padding: 20px;
   overflow-x: auto;
 }
 
-/ الجدول /
+/* الجدول */
 table {
   min-width: 600px;
   width: 100%;
@@ -100,7 +100,7 @@ th {
   text-align: center;
 }
 
-/ ألوان النوادي /
+/* ألوان النوادي */
 .club-رسم {
   background-color: #f8c6d8;
 }
@@ -117,7 +117,7 @@ th {
   background-color: #e6d0ff;
 }
 
-/ النافذة المنبثقة /
+/* النافذة المنبثقة */
 .modal {
   position: fixed;
   top: 0;
@@ -140,7 +140,7 @@ th {
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
 
-/ حقول الإدخال /
+/* حقول الإدخال */
 input, select {
   width: 100%;
   padding: 10px;
@@ -150,14 +150,14 @@ input, select {
   font-size: 14px;
 }
 
-/ أزرار النموذج /
+/* أزرار النموذج */
 .form-actions {
   display: flex;
   justify-content: space-between;
   margin-top: 15px;
 }
 
-/ أيقونات الإجراءات /
+/* أيقونات الإجراءات */
 .action-icon {
   cursor: pointer;
   margin: 0 8px;
@@ -174,7 +174,7 @@ input, select {
   color: #3498db;
 }
 
-/ إخفاء العناصر /
+/* إخفاء العناصر */
 .hidden {
   display: none;
 }
