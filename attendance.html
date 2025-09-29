@@ -3,6 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>سجل الحضور</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  >
   <style>
     body {
       font-family: 'Cairo', sans-serif;
@@ -46,7 +51,7 @@
       color: #2c3e50;
     }
 
-    .add-btn, .confirm-btn, .cancel-btn {
+    .add-btn, .confirm-btn {
       background-color: #2ecc71;
       color: white;
       border: none;
@@ -55,6 +60,9 @@
       cursor: pointer;
       font-size: 14px;
       margin: 5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .add-btn:hover, .confirm-btn:hover {
@@ -63,6 +71,16 @@
 
     .cancel-btn {
       background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .cancel-btn:hover {
@@ -71,10 +89,7 @@
 
     .modal {
       position: fixed;
-      top: 0;
-      right: 0;
-      left: 0;
-      bottom: 0;
+      top: 0; right: 0; left: 0; bottom: 0;
       background-color: rgba(0,0,0,0.5);
       display: flex;
       justify-content: center;
@@ -93,6 +108,13 @@
       width: 90%;
       max-width: 500px;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .modal-content p {
+      margin-bottom: 20px;
+      font-size: 16px;
+      color: #2c3e50;
     }
 
     input[type="text"], input[type="date"] {
@@ -139,39 +161,61 @@
       <tfoot>
         <tr>
           <td colspan="3">
-            <button class="add-btn" onclick="showAddDateModal()">أضف تاريخ</button>
+            <button class="add-btn" onclick="showAddDateModal()">
+              <i class="fas fa-plus"></i>&nbsp;أضف تاريخ
+            </button>
           </td>
         </tr>
       </tfoot>
     </table>
   </main>
 
+  <!-- إضافة جلسة -->
   <div id="add-date-modal" class="modal hidden">
     <div class="modal-content">
       <h3>إضافة جلسة جديدة</h3>
       <input type="text" id="session-title" placeholder="عنوان الجلسة">
       <input type="date" id="session-date">
-      <div style="text-align: center;">
-        <button class="confirm-btn" onclick="addSession()">موافق</button>
-        <button class="cancel-btn" onclick="hideAddDateModal()">إلغاء</button>
+      <div>
+        <button class="confirm-btn" onclick="addSession()">
+          <i class="fas fa-check"></i>&nbsp;موافق
+        </button>
+        <button class="cancel-btn" onclick="hideAddDateModal()">
+          <i class="fas fa-times"></i>&nbsp;إلغاء
+        </button>
       </div>
     </div>
   </div>
 
+  <!-- تسجيل الحضور -->
   <div id="mark-attendance-modal" class="modal hidden">
     <div class="modal-content">
       <h3>تسجيل الحضور</h3>
       <div id="members-list"></div>
-      <div style="text-align: center;">
-        <button class="confirm-btn" onclick="saveAttendance()">حفظ</button>
-        <button class="cancel-btn" onclick="hideMarkAttendanceModal()">إغلاق</button>
+      <div>
+        <button class="confirm-btn" onclick="saveAttendance()">
+          <i class="fas fa-save"></i>&nbsp;حفظ
+        </button>
+        <button class="cancel-btn" onclick="hideMarkAttendanceModal()">
+          <i class="fas fa-times"></i>&nbsp;إغلاق
+        </button>
       </div>
+    </div>
+  </div>
+
+  <!-- تأكيد حذف الجلسة -->
+  <div id="delete-session-modal" class="modal hidden">
+    <div class="modal-content">
+      <p>هل أنت متأكد من حذف هذه الجلسة؟</p>
+      <button class="confirm-btn" onclick="deleteSession()">نعم</button>
+      <button class="cancel-btn" onclick="closeDeleteModal()">لا</button>
     </div>
   </div>
 
   <script>
     let sessions = JSON.parse(localStorage.getItem("sessions")) || [];
-    let members = JSON.parse(localStorage.getItem("members")) || [];
+    let members  = JSON.parse(localStorage.getItem("members")) || [];
+    let deleteSessionIndex = null;
 
     function renderSessions() {
       const tbody = document.getElementById("attendance-body");
@@ -182,19 +226,34 @@
           <td>${session.title}</td>
           <td>${session.date}</td>
           <td>
-            <button class="add-btn" onclick="openAttendance(${index})">الحضور</button>
-            <button class="cancel-btn" onclick="deleteSession(${index})">حذف</button>
+            <button class="add-btn" title="تسجيل الحضور" onclick="openAttendance(${index})">
+              <i class="fas fa-calendar-check"></i>
+            </button>
+            <button class="cancel-btn" title="حذف الجلسة" onclick="confirmDeleteSession(${index})">
+              <i class="fas fa-trash-alt"></i>
+            </button>
           </td>
         `;
         tbody.appendChild(row);
       });
     }
 
-    function deleteSession(index) {
-      if (confirm("هل أنت متأكد من حذف هذه الجلسة؟")) {
-        sessions.splice(index, 1);
+    function confirmDeleteSession(index) {
+      deleteSessionIndex = index;
+      document.getElementById("delete-session-modal").classList.remove("hidden");
+    }
+
+    function closeDeleteModal() {
+      deleteSessionIndex = null;
+      document.getElementById("delete-session-modal").classList.add("hidden");
+    }
+
+    function deleteSession() {
+      if (deleteSessionIndex !== null) {
+        sessions.splice(deleteSessionIndex, 1);
         localStorage.setItem("sessions", JSON.stringify(sessions));
         renderSessions();
+        closeDeleteModal();
       }
     }
 
@@ -207,8 +266,8 @@
     }
 
     function addSession() {
-      const title = document.getElementById("session-title").value;
-      const date = document.getElementById("session-date").value;
+      const title = document.getElementById("session-title").value.trim();
+      const date  = document.getElementById("session-date").value;
       if (title && date) {
         sessions.push({ title, date, attendance: {} });
         localStorage.setItem("sessions", JSON.stringify(sessions));
@@ -221,7 +280,6 @@
       const container = document.getElementById("members-list");
       container.innerHTML = "";
       container.setAttribute("data-session-index", index);
-
       const attendance = sessions[index].attendance || {};
 
       members.forEach((member, i) => {
@@ -244,10 +302,10 @@
 
     function saveAttendance() {
       const container = document.getElementById("members-list");
-      const index = container.getAttribute("data-session-index");
+      const index = parseInt(container.getAttribute("data-session-index"), 10);
       const attendance = {};
 
-      members.forEach((member, i) => {
+      members.forEach((_, i) => {
         const input = document.querySelector(`input[name="att-${i}"]`);
         attendance[i] = input ? input.value.trim() : "";
       });
