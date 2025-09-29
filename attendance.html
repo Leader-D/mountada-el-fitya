@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>سجل الحضور</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6f9;
+    }
+
+    .top-bar {
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .main-content {
+      padding: 20px;
+      margin-top: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 0 10px #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #ecf0f1;
+      color: #2c3e50;
+    }
+
+    .add-btn, .confirm-btn, .cancel-btn {
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 5px;
+    }
+
+    .add-btn:hover, .confirm-btn:hover {
+      background-color: #27ae60;
+    }
+
+    .cancel-btn {
+      background-color: #e74c3c;
+    }
+
+    .cancel-btn:hover {
+      background-color: #c0392b;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+
+    input[type="text"], input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #bdc3c7;
+      font-size: 14px;
+    }
+
+    .member-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+    }
+
+    .member-row input[type="text"] {
+      width: 55%;
+      padding: 6px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-bar">
+    <h1>سجل الحضور</h1>
+  </header>
+
+  <main class="main-content">
+    <table id="attendance-table">
+      <thead>
+        <tr>
+          <th>العنوان</th>
+          <th>التاريخ</th>
+          <th>الحضور</th>
+        </tr>
+      </thead>
+      <tbody id="attendance-body"></tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">
+            <button class="add-btn" onclick="showAddDateModal()">أضف تاريخ</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </main>
+
+  <!-- نافذة إضافة جلسة -->
+  <div id="add-date-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>إضافة جلسة جديدة</h3>
+      <input type="text" id="session-title" placeholder="عنوان الجلسة">
+      <input type="date" id="session-date">
+      <div style="text-align: center;">
+        <button class="confirm-btn" onclick="addSession()">موافق</button>
+        <button class="cancel-btn" onclick="hideAddDateModal()">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- نافذة تسجيل الحضور -->
+  <div id="mark-attendance-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>تسجيل الحضور</h3>
+      <div id="members-list"></div>
+      <div style="text-align: center;">
+        <button class="confirm-btn" onclick="saveAttendance()">حفظ</button>
+        <button class="cancel-btn" onclick="hideMarkAttendanceModal()">إغلاق</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let sessions = JSON.parse(localStorage.getItem("sessions")) || [];
+    let members = JSON.parse(localStorage.getItem("members")) || [];
+
+    function renderSessions() {
+      const tbody = document.getElementById("attendance-body");
+      tbody.innerHTML = "";
+      sessions.forEach((session, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${session.title}</td>
+          <td>${session.date}</td>
+          <td><button class="add-btn" onclick="openAttendance(${index})">الحضور</button></td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function showAddDateModal() {
+      document.getElementById("add-date-modal").classList.remove("hidden");
+    }
+
+    function hideAddDateModal() {
+      document.getElementById("add-date-modal").classList.add("hidden");
+    }
+
+    function addSession() {
+      const title = document.getElementById("session-title").value;
+      const date = document.getElementById("session-date").value;
+      if (title && date) {
+        sessions.push({ title, date, attendance: {} });
+        localStorage.setItem("sessions", JSON.stringify(sessions));
+        renderSessions();
+        hideAddDateModal();
+      }
+    }
+
+    function openAttendance(index) {
+      const container = document.getElementById("members-list");
+      container.innerHTML = "";
+      container.setAttribute("data-session-index", index);
+
+      const attendance = sessions[index].attendance || {};
+
+      members.forEach((member, i) => {
+        const div = document.createElement("div");
+        div.className = "member-row";
+
+        const value = attendance[i] || "";
+
+        div.innerHTML = `
+          <span><strong>${member.name} ${member.surname}</strong></span>
+          <input type="text" name="att-${i}" value="${value}" placeholder="ملاحظة الحضور">
+        `;
+        container.appendChild(div);
+      });
+
+      document.getElementById("mark-attendance-modal").classList.remove("hidden");
+    }
+
+    function hideMarkAttendanceModal() {
+      document.getElementById("mark-attendance-modal").classList.add("hidden");
+    }
+
+    function saveAttendance() {
+      const container = document.getElementById("members-list");
+      const index = container.getAttribute("data-session-index");
+      const attendance = {};
+
+      members.forEach((member, i) => {
+        const input = document.querySelector(`input[name="att-${i}"]`);
+        attendance[i] = input ? input.value.trim() : "";
+      });
+
+      sessions[index].attendance = attendance;
+      localStorage.setItem("sessions", JSON.stringify(sessions));
+      hideMarkAttendanceModal();
+    }
+
+    window.onload = renderSessions;
+  </script>
+</body>
+</html>
