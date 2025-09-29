@@ -185,3 +185,57 @@ input, select {
 .hidden {
   display: none;
 }
+@media (max-width: 600px) {
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .top-bar h1 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .main-content {
+    padding: 10px;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  th, td {
+    white-space: nowrap;
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .add-btn, .confirm-btn, .cancel-btn {
+    font-size: 13px;
+    padding: 6px 10px;
+    margin: 4px;
+  }
+
+  .modal-content {
+    width: 95%;
+    padding: 20px;
+  }
+
+  input[type="text"], input[type="date"] {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .member-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .member-row input[type="text"] {
+    width: 100%;
+    margin-top: 5px;
+  }
+}
