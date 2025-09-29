@@ -132,7 +132,7 @@
         <tr>
           <th>العنوان</th>
           <th>التاريخ</th>
-          <th>الحضور</th>
+          <th>إجراءات</th>
         </tr>
       </thead>
       <tbody id="attendance-body"></tbody>
@@ -146,7 +146,6 @@
     </table>
   </main>
 
-  <!-- نافذة إضافة جلسة -->
   <div id="add-date-modal" class="modal hidden">
     <div class="modal-content">
       <h3>إضافة جلسة جديدة</h3>
@@ -159,7 +158,6 @@
     </div>
   </div>
 
-  <!-- نافذة تسجيل الحضور -->
   <div id="mark-attendance-modal" class="modal hidden">
     <div class="modal-content">
       <h3>تسجيل الحضور</h3>
@@ -183,10 +181,21 @@
         row.innerHTML = `
           <td>${session.title}</td>
           <td>${session.date}</td>
-          <td><button class="add-btn" onclick="openAttendance(${index})">الحضور</button></td>
+          <td>
+            <button class="add-btn" onclick="openAttendance(${index})">الحضور</button>
+            <button class="cancel-btn" onclick="deleteSession(${index})">حذف</button>
+          </td>
         `;
         tbody.appendChild(row);
       });
+    }
+
+    function deleteSession(index) {
+      if (confirm("هل أنت متأكد من حذف هذه الجلسة؟")) {
+        sessions.splice(index, 1);
+        localStorage.setItem("sessions", JSON.stringify(sessions));
+        renderSessions();
+      }
     }
 
     function showAddDateModal() {
@@ -218,9 +227,7 @@
       members.forEach((member, i) => {
         const div = document.createElement("div");
         div.className = "member-row";
-
         const value = attendance[i] || "";
-
         div.innerHTML = `
           <span><strong>${member.name} ${member.surname}</strong></span>
           <input type="text" name="att-${i}" value="${value}" placeholder="ملاحظة الحضور">
