@@ -65,7 +65,7 @@ function deleteMember(index, icon) {
   if (tableBody.children.length === 0) {
     const noRow = document.createElement("tr");
     noRow.id = "no-members-row";
-    noRow.innerHTML = <td colspan="5" class="no-members">لا يوجد أعضاء بعد</td>;
+    noRow.innerHTML = '<td colspan="5" class="no-members">لا يوجد أعضاء بعد</td>';
     tableBody.appendChild(noRow);
   } else {
     tableBody.innerHTML = "";
