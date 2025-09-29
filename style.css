@@ -56,7 +56,7 @@ body {
   padding: 8px 12px;
   border-radius: 2px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 18px;
 }
 .attendance-btn:hover {
   background-color: #d35400;
