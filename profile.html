@@ -1,3 +1,5 @@
+هل يمكنك تعديل هذا ليستخدم Local Storage ويتكامل مع الاخرين بدل الPHP والSQL 🥺🥺
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -137,13 +139,32 @@
     <div id="profile-view"></div>
 
     <div id="edit-form" class="edit-form hidden">
-      <div class="edit-item"><i class="fas fa-user"></i><input type="text" id="edit-name" placeholder="الاسم"></div>
-      <div class="edit-item"><i class="fas fa-user"></i><input type="text" id="edit-surname" placeholder="اللقب"></div>
-      <div class="edit-item"><i class="fas fa-hourglass-half"></i><input type="number" id="edit-age" placeholder="العمر"></div>
-      <div class="edit-item"><i class="fas fa-calendar-alt"></i><input type="text" id="edit-year" placeholder="سنة الاشتراك"></div>
-      <div class="edit-item"><i class="fas fa-phone-alt"></i><input type="text" id="edit-phone1" placeholder="رقم الهاتف الأول"></div>
-      <div class="edit-item"><i class="fas fa-phone-alt"></i><input type="text" id="edit-phone2" placeholder="رقم الهاتف الثاني"></div>
-      <div class="edit-item"><i class="fas fa-user-tag"></i>
+      <div class="edit-item">
+        <i class="fas fa-user"></i>
+        <input type="text" id="edit-name" placeholder="الاسم">
+      </div>
+      <div class="edit-item">
+        <i class="fas fa-user"></i>
+        <input type="text" id="edit-surname" placeholder="اللقب">
+      </div>
+      <div class="edit-item">
+        <i class="fas fa-hourglass-half"></i>
+        <input type="number" id="edit-age" placeholder="العمر">
+      </div>
+      <div class="edit-item">
+        <i class="fas fa-calendar-alt"></i>
+        <input type="text" id="edit-year" placeholder="سنة الاشتراك">
+      </div>
+      <div class="edit-item">
+        <i class="fas fa-phone-alt"></i>
+        <input type="text" id="edit-phone1" placeholder="رقم الهاتف الأول">
+      </div>
+      <div class="edit-item">
+        <i class="fas fa-phone-alt"></i>
+        <input type="text" id="edit-phone2" placeholder="رقم الهاتف الثاني">
+      </div>
+      <div class="edit-item">
+        <i class="fas fa-user-tag"></i>
         <select id="edit-rank">
           <option value="فتى">فتى</option>
           <option value="مساعد">مساعد</option>
@@ -151,7 +172,8 @@
           <option value="مسؤول">مسؤول</option>
         </select>
       </div>
-      <div class="edit-item"><i class="fas fa-users"></i>
+      <div class="edit-item">
+        <i class="fas fa-users"></i>
         <select id="edit-club">
           <option value="رسم">رسم</option>
           <option value="تجارب واختراعات">تجارب واختراعات</option>
@@ -171,32 +193,90 @@
   </div>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const index = parseInt(params.get('index'), 10);
-    const members = JSON.parse(localStorage.getItem('members') || '[]');
-    const member = (!isNaN(index) && index >= 0 && index < members.length)
-                   ? members[index]
-                   : null;
-    const editBtn = document.getElementById('edit-btn');
-    const saveBtn = document.getElementById('save-btn');
+  const params = new URLSearchParams(window.location.search);
+  const index = parseInt(params.get('index'), 10);
+  const members = JSON.parse(localStorage.getItem('members')) || [];
+  const member = (!isNaN(index) && index >= 0 && index < members.length)
+                 ? members[index]
+                 : null;
+  const editBtn = document.getElementById('edit-btn');
+  const saveBtn = document.getElementById('save-btn');
 
-    function renderProfile() {
-      document.getElementById('profile-view').innerHTML = `
-        <div class="profile-item"><i class="fas fa-user"></i> الاسم الكامل: ${member.name} ${member.surname}</div>
-        <div class="profile-item"><i class="fas fa-hourglass-half"></i> العمر: ${member.age}</div>
-        <div class="profile-item"><i class="fas fa-calendar-alt"></i> سنة الاشتراك: ${member.year}</div>
-        <div class="profile-item"><i class="fas fa-phone-alt"></i> رقم الهاتف الأول: ${member.phone1}</div>
-        <div class="profile-item"><i class="fas fa-phone-alt"></i> رقم الهاتف الثاني: ${member.phone2}</div>
-        <div class="profile-item"><i class="fas fa-user-tag"></i> الرتبة: ${member.rank}</div>
-        <div class="profile-item"><i class="fas fa-users"></i> النادي: ${member.club}</div>
-        <div class="profile-item"><i class="fas fa-clock"></i> تاريخ الانضمام: ${member.joinDate}</div>
-      `;
+  function renderProfile() {
+    if (!member) {
+      document.getElementById('profile-view').innerHTML =
+        "<p style='color:red; text-align:center;'>⚠️ لم يتم العثور على بيانات العضو.</p>";
+      return;
     }
 
-    function showEditForm() {
-      document.getElementById('edit-form').classList.remove('hidden');
-      document.getElementById('edit-name').value    = member.name;
-      document.getElementById('edit-surname').value = member.surname;
-      document.getElementById('edit-age').value     = member.age;
-      document.getElementById('edit-year').value    = member.year;
-      document.getElementBy[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/ahmad01213/children/tree/b1532d16836c30e3ccc584dc301fd195b671b936/resources%2Fviews%2Fhome.blade.php?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "1")[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/sa3d01/coursatna/tree/2237ee21af976db6c3d9314d5467ab3801d951eb/resources%2Fviews%2Fdashboard%2Fmaster%2Fbase.blade.php?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "2")
+    document.getElementById('profile-view').innerHTML = `
+      <div class="profile-item"><i class="fas fa-user"></i> الاسم الكامل: ${member.name} ${member.surname}</div>
+      <div class="profile-item"><i class="fas fa-hourglass-half"></i> العمر: ${member.age}</div>
+      <div class="profile-item"><i class="fas fa-calendar-alt"></i> سنة الاشتراك: ${member.year}</div>
+      <div class="profile-item"><i class="fas fa-phone-alt"></i> رقم الهاتف الأول: ${member.phone1}</div>
+      <div class="profile-item"><i class="fas fa-phone-alt"></i> رقم الهاتف الثاني: ${member.phone2}</div>
+      <div class="profile-item"><i class="fas fa-user-tag"></i> الرتبة: ${member.rank}</div>
+      <div class="profile-item"><i class="fas fa-users"></i> النادي: ${member.club}</div>
+      <div class="profile-item"><i class="fas fa-clock"></i> تاريخ الانضمام: ${member.joinDate}</div>
+    `;
+  }
+
+  function showEditForm() {
+    if (!member) return;
+
+    document.getElementById('edit-form').classList.remove('hidden');
+    document.getElementById('edit-name').value    = member.name;
+    document.getElementById('edit-surname').value = member.surname;
+    document.getElementById('edit-age').value     = member.age;
+    document.getElementById('edit-year').value    = member.year;
+    document.getElementById('edit-phone1').value  = member.phone1;
+    document.getElementById('edit-phone2').value  = member.phone2;
+    document.getElementById('edit-rank').value    = member.rank;
+    document.getElementById('edit-club').value    = member.club;
+
+    const inputs = document.querySelectorAll('#edit-form input, #edit-form select');
+    inputs.forEach(input => {
+      input.addEventListener('input', () => {
+        saveBtn.disabled = false;
+        saveBtn.style.backgroundColor = '#2ecc71';
+        saveBtn.style.cursor = 'pointer';
+      });
+    });
+  }
+
+  function confirmSave() {
+    document.getElementById('modal').classList.remove('hidden');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.add('hidden');
+  }
+
+  function saveChanges() {
+    member.name    = document.getElementById('edit-name').value;
+    member.surname = document.getElementById('edit-surname').value;
+    member.age     = document.getElementById('edit-age').value;
+    member.year    = document.getElementById('edit-year').value;
+    member.phone1  = document.getElementById('edit-phone1').value;
+    member.phone2  = document.getElementById('edit-phone2').value;
+    member.rank    = document.getElementById('edit-rank').value;
+    member.club    = document.getElementById('edit-club').value;
+
+    members[index] = member;
+    localStorage.setItem('members', JSON.stringify(members));
+
+    renderProfile();
+    closeModal();
+    document.getElementById('edit-form').classList.add('hidden');
+    saveBtn.disabled = true;
+    saveBtn.style.backgroundColor = '#bdc3c7';
+    saveBtn.style.cursor = 'not-allowed';
+  }
+
+  editBtn.addEventListener('click', showEditForm);
+  saveBtn.addEventListener('click', confirmSave);
+
+  renderProfile();
+      </script>
+</body>
+</html>
