@@ -1,0 +1,24 @@
+{
+  "name": "Mountada-el-fitya-HRM",
+  "short_name": "MeF-HRM",
+  "start_url": "https://leader-d.github.io/mountada-el-fitya/?source=pwa",
+  "scope": "/mountada-el-fitya/",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#3498db",
+  "theme_color": "#3498db",
+  "lang": "en",
+  "description": "An app for associations to support human resources management.",
+  "icons": [
+    {
+      "src": "logo192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
