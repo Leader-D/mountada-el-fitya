@@ -15,12 +15,12 @@
   <header class="top-bar">
     <h1>منتدى الفتية - إدارة الأعضاء</h1>
     <div>
-    <button class="add-btn" onclick="showModal()" title="إضافة عضو">
-      <i class="fas fa-user-plus"></i>
-    </button>
-    <a href="attendance.html" class="attendance-btn" title="تسجيل الحضور">
-  <i class="fas fa-calendar-check"></i>
-    </a>
+      <button class="add-btn" onclick="showModal()" title="إضافة عضو">
+        <i class="fas fa-user-plus"></i>
+      </button>
+      <a href="attendance.html" class="attendance-btn" title="تسجيل الحضور">
+        <i class="fas fa-calendar-check"></i>
+      </a>
     </div>
   </header>
 
@@ -39,59 +39,53 @@
         <tr id="no-members-row">
           <td colspan="5" class="no-members">لا يوجد أعضاء بعد</td>
         </tr>
-        <!--
-        عند ملء الأعضاء ديناميكياً، سيكون شكل العمود كما يلي:
-        <tr>
-          <td>اسم العضو كامل</td>
-          <td>الرتبة</td>
-          <td>النادي</td>
-          <td>تاريخ الانضمام</td>
-          <td class="actions-cell">
-            <a href="profile.html?index=0" title="عرض الملف">
-              <i class="fas fa-user"></i>
-            </a>
-            <a href="#" title="تسجيل الحضور">
-              <i class="fas fa-calendar-check"></i>
-            </a>
-            <a href="#" title="حذف العضو">
-              <i class="fas fa-trash-alt"></i>
-            </a>
-          </td>
-        </tr>
-        -->
       </tbody>
     </table>
   </main>
 
+  <!-- نافذة إضافة عضو -->
   <div id="modal" class="modal hidden">
     <div class="modal-content">
-      <h3>إضافة عضو جديد</h3>
-      <input type="text" id="name" placeholder="الاسم">
-      <input type="text" id="surname" placeholder="اللقب">
-      <input type="number" id="age" placeholder="العمر">
-      <input type="text" id="year" placeholder="سنة الاشتراك">
-      <input type="text" id="phone1" placeholder="رقم الهاتف الأول">
-      <input type="text" id="phone2" placeholder="رقم الهاتف الثاني (اختياري)">
-      <select id="rank">
-        <option value="فتى">فتى</option>
-        <option value="مساعد">مساعد</option>
-        <option value="مؤطر">مؤطر</option>
-        <option value="مسؤول">مسؤول</option>
-      </select>
-      <select id="club">
-        <option value="رسم">رسم</option>
-        <option value="تجارب واختراعات">تجارب واختراعات</option>
-        <option value="اعلام الي">إعلام آلي</option>
-        <option value="برمجة">برمجة</option>
-      </select>
-      <div class="form-actions">
-        <button onclick="addMember()" class="confirm-btn">
-          <i class="fas fa-check"></i>
-        </button>
-        <button onclick="hideModal()" class="cancel-btn">
-          <i class="fas fa-times"></i>
-        </button>
+      
+      <!-- هيدر المودال: العنوان + الأزرار -->
+      <div class="modal-header">
+        <h3>إضافة عضو جديد</h3>
+        <div class="modal-buttons">
+          <button onclick="addMember()" class="confirm-btn" title="موافق">
+            <i class="fas fa-check"></i>
+          </button>
+          <button onclick="hideModal()" class="cancel-btn" title="إلغاء">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
       </div>
+      
+      <!-- جسم المودال: شبكة عمودين -->
+      <div class="modal-body">
+        <div class="form-grid">
+          <!-- العمود الأيمن -->
+          <input type="text" id="name"    placeholder="الاسم">
+          <input type="text" id="surname" placeholder="اللقب">
+          <input type="number" id="age"   placeholder="العمر">
+          <input type="text" id="year"    placeholder="سنة الاشتراك">
+          <!-- العمود الأيسر -->
+          <input type="text" id="phone1"  placeholder="رقم الهاتف الأول">
+          <input type="text" id="phone2"  placeholder="رقم الهاتف الثاني (اختياري)">
+          <select id="rank">
+            <option value="فتى">فتى</option>
+            <option value="مساعد">مساعد</option>
+            <option value="مؤطر">مؤطر</option>
+            <option value="مسؤول">مسؤول</option>
+          </select>
+          <select id="club">
+            <option value="رسم">رسم</option>
+            <option value="تجارب واختراعات">تجارب واختراعات</option>
+            <option value="اعلام الي">إعلام آلي</option>
+            <option value="برمجة">برمجة</option>
+          </select>
+        </div>
+      </div>
+
     </div>
   </div>
 
